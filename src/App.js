@@ -1,5 +1,9 @@
+const startGame = require('./View/GameStart');
+
 class App {
-  play() {}
+  play() {
+    const gameStart = new startGame();
+  }
 }
 
 module.exports = App;
