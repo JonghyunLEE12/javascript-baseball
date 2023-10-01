@@ -6,6 +6,9 @@ const CON = require('../Controller/Controller');
 
 class GameStart{
     constructor() {
+        this.gamePlay();
+    }
+    gamePlay() {
         this.gameStart();
         this.checkingNumber();
         this.endGame();
@@ -15,15 +18,15 @@ class GameStart{
         CONSTANTS.NAMES.WIN_NUMBER = CON.makeNumber();
     }
     checkingNumber() {
-        while (CONSTANTS.NAMES.WIN_NUMBER.join('') != CONSTANTS.NAMES.CHECK_NUMBER) {
+        while (CONSTANTS.NAMES.WIN_NUMBER.join('') !== CONSTANTS.NAMES.CHECK_NUMBER) {
             MissionUtils.Console.readLine(`${OUTPUT.MSG.INPUT_NUMBER}`,(number) =>{
                 MissionUtils.Console.print(`${OUTPUT.MSG.INPUT_NUMBER} ${number}`);
+                CON.validate(number)
                 CONSTANTS.NAMES.CHECK_NUMBER = number;
                 OUTPUT.MSG.CHECK_MSG = CON.checking(CONSTANTS.NAMES.WIN_NUMBER, CONSTANTS.NAMES.CHECK_NUMBER)
                 MissionUtils.Console.print(`${OUTPUT.MSG.CHECK_MSG}`);
-
-                if (OUTPUT.MSG.CHECK_MSG === '3스트라이크') return
             })
+            if (OUTPUT.MSG.CHECK_MSG === '3스트라이크') break
         }
     }
     endGame() {
@@ -31,10 +34,9 @@ class GameStart{
         MissionUtils.Console.print(`${OUTPUT.MSG.RE_GAME}`);
         MissionUtils.Console.readLine(`${OUTPUT.MSG.RE_GAME}`,(chose) => {
             MissionUtils.Console.print(`${chose}`);
-            if (chose == 1) return
-            if (chose == 2) {
-                const newGame = new App();
-                newGame.play();
+            CON.endValidate(chose);
+            if (chose == 1) {
+                this.gamePlay();
             }
         })
     }

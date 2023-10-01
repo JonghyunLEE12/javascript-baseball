@@ -1,5 +1,14 @@
 const MissionUtils = require("@woowacourse/mission-utils");
 
+const validate = (number) => {
+    if (number.length !== 3) throw new Error("[ERROR]")
+}
+
+const endValidate = (number) => {
+    const correct = [1,2];
+    if (!correct.includes(parseInt(number))) throw new Error("[ERROR]")
+}
+
 const makeNumber = () => {
     const computer = [];
     while (computer.length < 3) {
@@ -8,7 +17,6 @@ const makeNumber = () => {
             computer.push(number);
         }
     }
-    console.log(computer)
     return computer
 }
 
@@ -41,5 +49,7 @@ const checkBall = (win,check,strike) => {
 
 module.exports = {
     makeNumber,
-    checking
+    checking,
+    validate,
+    endValidate
 }
